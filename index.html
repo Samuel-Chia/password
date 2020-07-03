@@ -144,13 +144,21 @@
         var pwd = document.getElementById("pwd").value;
         var key = document.getElementById("key").value;
         var encrypt_pwd = encrypt(pwd, key);
-        if (encrypt_pwd) {
-            document.getElementById("code16").value = encrypt_pwd;
-            document.getElementById("code14").value = encrypt_pwd.slice(0, 14);
-            document.getElementById("code10").value = encrypt_pwd.slice(0, 10);
-            document.getElementById("code8").value = encrypt_pwd.slice(0, 8);
-        }
+        document.getElementById("code16").value = encrypt_pwd;
+        document.getElementById("code14").value = encrypt_pwd.slice(0, 14);
+        document.getElementById("code10").value = encrypt_pwd.slice(0, 10);
+        document.getElementById("code8").value = encrypt_pwd.slice(0, 8);
     }
+
+    document.getElementById("clear_pwd").onclick = function () {
+        document.getElementById("pwd").value = "";
+        extracted();
+    };
+
+    document.getElementById("clear_key").onclick = function () {
+        document.getElementById("key").value = "";
+        extracted();
+    };
 
     document.getElementById("none").onclick = function () {
         joint_digits(SYMBOL_0);

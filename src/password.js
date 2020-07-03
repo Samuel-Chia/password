@@ -13,15 +13,15 @@ SYMBOL_2 = ['_', '-', '!', '@', '#', '$', '%'];
 DIGITS = [];
 
 function joint_digits(symbol) {
-	let NUMBER_SYMBOL = [].concat(NUMBER).concat(symbol);
+    let NUMBER_SYMBOL = [].concat(NUMBER).concat(symbol);
 
-	for (let i = 0; i < LOWER_CASE.length; i++) {
-		DIGITS[i * 4] = LOWER_CASE[i];
-		DIGITS[i * 4 + 2] = UPPER_CASE[i];
-	}
-	for (let i = 0; i < LOWER_CASE.length * 2; i++) {
-		DIGITS[i * 2 + 1] = NUMBER_SYMBOL[i % NUMBER_SYMBOL.length];
-	}
+    for (let i = 0; i < LOWER_CASE.length; i++) {
+        DIGITS[i * 4] = LOWER_CASE[i];
+        DIGITS[i * 4 + 2] = UPPER_CASE[i];
+    }
+    for (let i = 0; i < LOWER_CASE.length * 2; i++) {
+        DIGITS[i * 2 + 1] = NUMBER_SYMBOL[i % NUMBER_SYMBOL.length];
+    }
 }
 
 function encrypt(password, key) {
@@ -43,8 +43,8 @@ function encrypt(password, key) {
         }
         let i;
         for (i = 0; i < temp.length; i++) {
-			let c = temp[i];
-			if (c >= '0' && c <= '9') {
+            let c = temp[i];
+            if (c >= '0' && c <= '9') {
                 temp[result.length + i] = c;
             } else {
                 break;
@@ -54,7 +54,10 @@ function encrypt(password, key) {
             result[j] = temp[i + j];
         }
         return result.join("");
+    } else {
+        return "";
     }
+
 }
 
 
