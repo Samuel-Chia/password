@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>密</title>
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" media="screen,projection"/>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="input-field col-12 col-sm-12 col-md-8 col-lg-6">
+            <form>
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">符号</span>
+                    </div>
+                    <label class="radio-inline" style='margin-left:12%; vertical-align:middle; margin-top:6px;'>
+                        <input type="radio" name="optionsRadiosinline" id="none" value="none"> 无符号
+                    </label>
+                    <label class="radio-inline" style='margin-left:12%; vertical-align:middle; margin-top:6px;'>
+                        <input type="radio" name="optionsRadiosinline" id="simple" value="simple"> -,_
+                    </label>
+                    <label class="radio-inline" style='margin-left:12%; vertical-align:middle; margin-top:6px;'>
+                        <input type="radio" name="optionsRadiosinline" id="complex" value="complex" checked>
+                        _,-,!,@,#,$,%
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="clear_pwd"></label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">密码</span>
+                        </div>
+                        <input type="text" class="form-control" id="pwd" value="">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="clear_pwd"
+                                    data-clipboard-target="#pwd">
+                                清空
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="clear_key"></label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">代号</span>
+                        </div>
+                        <input type="text" class="form-control" id="key" value="">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="clear_key"
+                                    data-clipboard-target="#key">
+                                清空
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="btn_copy_16"></label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">16位</span>
+                        </div>
+                        <input type="text" class="form-control" id="code16" value="" readonly="true">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="btn_copy_16"
+                                    data-clipboard-target="#code16">
+                                复制
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="btn_copy_14"></label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">14位</span>
+                        </div>
+                        <input type="text" class="form-control" id="code14" value="" readonly="true">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="btn_copy_14"
+                                    data-clipboard-target="#code14">
+                                复制
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="btn_copy_10"></label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">10位</span>
+                        </div>
+                        <input type="text" class="form-control" id="code10" value="" readonly="true">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="btn_copy_10"
+                                    data-clipboard-target="#code10">
+                                复制
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="btn_copy_8"></label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">8位</span>
+                        </div>
+                        <input type="text" class="form-control" id="code8" value="" readonly="true">
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="button" id="btn_copy_8"
+                                    data-clipboard-target="#code8">
+                                复制
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="js/clipboard.min.js"></script>
+<script type="text/javascript" src="js/md5.min.js"></script>
+<script type="text/javascript" src="src/password.js"></script>
+<script type="text/javascript">
+    var clipboard16 = new ClipboardJS("#btn_copy_16");
+    var clipboard14 = new ClipboardJS("#btn_copy_14");
+    var clipboard10 = new ClipboardJS("#btn_copy_10");
+    var clipboard18 = new ClipboardJS("#btn_copy_8");
+
+    joint_digits(SYMBOL_2);
+
+    function extracted() {
+        var pwd = document.getElementById("pwd").value;
+        var key = document.getElementById("key").value;
+        var encrypt_pwd = encrypt(pwd, key);
+        if (encrypt_pwd) {
+            document.getElementById("code16").value = encrypt_pwd;
+            document.getElementById("code14").value = encrypt_pwd.slice(0, 14);
+            document.getElementById("code10").value = encrypt_pwd.slice(0, 10);
+            document.getElementById("code8").value = encrypt_pwd.slice(0, 8);
+        }
+    }
+
+    document.getElementById("none").onclick = function () {
+        joint_digits(SYMBOL_0);
+        extracted();
+    };
+
+    document.getElementById("simple").onclick = function () {
+        joint_digits(SYMBOL_1);
+        extracted();
+    };
+
+    document.getElementById("complex").onclick = function () {
+        joint_digits(SYMBOL_2);
+        extracted();
+    };
+
+    document.getElementById("pwd").oninput = function () {
+        extracted();
+    };
+
+    document.getElementById("key").oninput = function () {
+        extracted();
+    }
+</script>
+</body>
+</html>
